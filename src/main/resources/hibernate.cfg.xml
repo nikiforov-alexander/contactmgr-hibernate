@@ -2,7 +2,12 @@
     <session-factory>
         <!-- Database connection setting -->
         <property name="connection.driver_class">org.h2.Driver</property>
-        <property name="connection.url">jdbc:h2:./data/contactmgr</property>
+        <!-- Embedded Database by Chris -->
+        <!--
+            <property name="connection.url">jdbc:h2:./data/contactmgr</property>
+         -->
+        <!-- Server-Based Database : For More Interaction -->
+        <property name="connection.url">jdbc:h2:tcp://localhost/./data/contactmgr</property>
 
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
