@@ -18,6 +18,9 @@
         <!-- Show the queries prepared by Hibernate -->
         <property name="show_sql">true</property>
 
+        <!-- Format SQL queries prepared by Hibernate -->
+        <property name="format_sql">true</property>
+
         <!-- Names the annotated entity classes -->
         <mapping class="com.teamtreehouse.contactmgr.model.Contact" />
     </session-factory>
