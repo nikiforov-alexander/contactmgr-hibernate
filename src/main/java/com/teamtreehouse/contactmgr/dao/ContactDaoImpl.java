@@ -49,9 +49,18 @@ public class ContactDaoImpl implements ContactDao {
         );
     }
 
+    // there is also ton of other ways to do this
+    // for an alternative given by @chrisramacciotti,
+    // see https://github.com/treehouse/giflib-hibernate/commit/4cd607e5dfde420e2e07d3970f4ede13f4cff783
     @Override
     public List<Contact> findAll() {
-        return null;
+        Session session = sessionFactory.openSession();
+        List<Contact> contacts = session.createQuery(
+                "SELECT c from Contact c",
+                Contact.class
+        ).list();
+        session.close();
+        return contacts;
     }
 
     @Override
