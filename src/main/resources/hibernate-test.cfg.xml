@@ -1,0 +1,26 @@
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection setting -->
+        <property name="connection.driver_class">org.h2.Driver</property>
+        <!-- Embedded Database For Testing Purposes.
+            One can use testing one, but this way I at least
+            see that some file is created. One more check.
+        -->
+        <property name="connection.url">jdbc:h2:./data/test-contactmgr</property>
+
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.H2Dialect</property>
+
+        <!-- Update the database schema on startup -->
+        <property name="hbm2ddl.auto">create-drop</property>
+
+        <!-- Show the queries prepared by Hibernate -->
+        <property name="show_sql">true</property>
+
+        <!-- Format SQL queries prepared by Hibernate -->
+        <property name="format_sql">true</property>
+
+        <!-- Names the annotated entity classes -->
+        <mapping class="com.teamtreehouse.contactmgr.model.Contact" />
+    </session-factory>
+</hibernate-configuration>
