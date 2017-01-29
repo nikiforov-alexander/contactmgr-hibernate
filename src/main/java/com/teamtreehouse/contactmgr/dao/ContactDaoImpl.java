@@ -73,12 +73,20 @@ public class ContactDaoImpl implements ContactDao {
 
     @Override
     public void update(Contact contact) {
-
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.update(contact);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
     public void saveOrUpdate(Contact contact) {
-
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(contact);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
