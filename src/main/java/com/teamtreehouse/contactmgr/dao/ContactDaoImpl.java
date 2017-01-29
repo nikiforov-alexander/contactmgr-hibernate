@@ -1,6 +1,7 @@
 package com.teamtreehouse.contactmgr.dao;
 
 import com.teamtreehouse.contactmgr.model.Contact;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -55,12 +56,19 @@ public class ContactDaoImpl implements ContactDao {
 
     @Override
     public Contact findOne(Long id) {
-        return null;
+        Session session = sessionFactory.openSession();
+        Contact contact = session.get(Contact.class, id);
+        session.close();
+        return contact;
     }
 
     @Override
     public void save(Contact contact) {
-
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.save(contact);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
