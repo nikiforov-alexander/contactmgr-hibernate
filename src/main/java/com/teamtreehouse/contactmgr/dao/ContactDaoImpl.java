@@ -105,6 +105,6 @@ public class ContactDaoImpl implements ContactDao {
 
     @Override
     public void closeDatabase() {
-
+        sessionFactory.close();
     }
 }
