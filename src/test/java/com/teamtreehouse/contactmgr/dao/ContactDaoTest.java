@@ -5,6 +5,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ContactDaoTest {
@@ -66,5 +68,17 @@ public class ContactDaoTest {
         // Then returned first contact should be equal to updated one
         assertThat(contactDao.findOne(1L))
                 .isEqualTo(updatedFirstContact);
+    }
+
+    @Test
+    public void findAllReturnsGivenNumberOfContacts() throws Exception {
+        // Given dao with 5 test contacts
+        addTestContactsToDatabase(5);
+
+        // When we call findAll
+        List<Contact> contacts = contactDao.findAll();
+
+        // Then list of 5 tasks should be returned
+        assertThat(contacts).hasSize(5);
     }
 }
