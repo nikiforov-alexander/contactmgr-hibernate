@@ -25,6 +25,18 @@ public class ContactDaoTest {
         contactDao.closeDatabase();
     }
 
+    // private methods that help to set up some tests
+    private void addTestContactsToDatabase(int numberOfTestContacts) {
+        for (int i = 1; i <= numberOfTestContacts; i++) {
+            Contact contact = new Contact.ContactBuilder(
+                    "FirstName " + i, "LastName " + i
+            ).withEmail("example" + i + "@mail.com")
+            .withPhone((long) i)
+            .build();
+            contactDao.save(contact);
+        }
+    }
+
     @Test
     public void contactCanBeSaved() throws Exception {
         // Given testContact to be saved
@@ -40,4 +52,19 @@ public class ContactDaoTest {
                 .isEqualTo(testContact);
     }
 
+    @Test
+    public void contactCanBeUpdated() throws Exception {
+        // Given database with 5 test contacts
+        addTestContactsToDatabase(5);
+        // and updated first contact
+        Contact updatedFirstContact = contactDao.findOne(1L);
+        updatedFirstContact.setFirstName("new name");
+
+        // When we update firstContact from dao
+        contactDao.update(updatedFirstContact);
+
+        // Then returned first contact should be equal to updated one
+        assertThat(contactDao.findOne(1L))
+                .isEqualTo(updatedFirstContact);
+    }
 }
