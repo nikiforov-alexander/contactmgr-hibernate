@@ -107,9 +107,22 @@ public class ContactDaoImpl implements ContactDao {
         session.close();
     }
 
+    /**
+     * Deletes {@code Contact} by given {@code id} as
+     * a parameter. Uses HQL to {@code createQuery}
+     * with {@code id} as a parameter
+     * @param id : id of {@code Contact} to be deleted
+     */
     @Override
     public void delete(Long id) {
-
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.createQuery(
+                "DELETE FROM Contact WHERE id = :id"
+        ).setParameter("id", id)
+        .executeUpdate();
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
