@@ -164,9 +164,21 @@ public class ContactDaoImpl implements ContactDao {
         return null;
     }
 
+    /**
+     * finds max {@code id} of all possible
+     * {@code Contact}-s. Used in testing when we
+     * add and then remove something, to keep track
+     * of the highest added {@code Contact}
+     * @return : max {@code id} : the id of latest added contact
+     */
     @Override
     public Long getMaxId() {
-        return null;
+        Session session = sessionFactory.openSession();
+        Long maxId = (Long) session.createQuery(
+                "SELECT MAX(id) FROM Contact"
+        ).getSingleResult();
+        session.close();
+        return maxId;
     }
 
     @Override
