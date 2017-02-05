@@ -81,4 +81,17 @@ public class ContactDaoTest {
         // Then list of 5 tasks should be returned
         assertThat(contacts).hasSize(5);
     }
+
+    @Test
+    public void contactCanBeDeleted() throws Exception {
+        // Given dao with 5 test Contact
+        addTestContactsToDatabase(5);
+
+        // When we deleted first contact
+        Contact firstContact = contactDao.findOne(1L);
+        contactDao.delete(firstContact);
+
+        // Then we should not be able to find first contact
+        assertThat(contactDao.findOne(1L)).isNull();
+    }
 }
