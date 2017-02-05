@@ -125,9 +125,22 @@ public class ContactDaoImpl implements ContactDao {
         session.close();
     }
 
+    /**
+     * Checks if {@code Contact} exists in DAO
+     * @param id : id of the task that is checked for
+     *           existence
+     * @return {@code true} if {@code Contact} exists, and
+     * false otherwise
+     */
     @Override
     public boolean exists(Long id) {
-        return false;
+        Session session = sessionFactory.openSession();
+        Long numberOfContactsWithThisId = (Long) session.createQuery(
+                "SELECT COUNT(id) FROM Contact WHERE id = :id"
+        ).setParameter("id", id)
+        .getSingleResult();
+        session.close();
+        return numberOfContactsWithThisId != 0;
     }
 
     @Override
