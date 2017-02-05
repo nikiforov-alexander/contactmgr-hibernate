@@ -94,4 +94,16 @@ public class ContactDaoTest {
         // Then we should not be able to find first contact
         assertThat(contactDao.findOne(1L)).isNull();
     }
+
+    @Test
+    public void contactCanBeDeletedById() throws Exception {
+        // Given dao with 5 test Contact
+        addTestContactsToDatabase(5);
+
+        // When we deleted first contact by Id
+        contactDao.delete(1L);
+
+        // Then we should not be able to find first contact
+        assertThat(contactDao.findOne(1L)).isNull();
+    }
 }
