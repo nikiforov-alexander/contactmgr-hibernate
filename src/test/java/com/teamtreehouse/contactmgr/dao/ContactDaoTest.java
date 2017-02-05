@@ -126,4 +126,14 @@ public class ContactDaoTest {
         // Then 5 should be returned
         assertThat(contactDao.count()).isEqualTo(5);
     }
+
+    @Test
+    public void getMaxIdActuallyFindsMaxId() throws Exception {
+        // Given dao with 5 contacts
+        addTestContactsToDatabase(5);
+
+        // When we try to find max id
+        // Then we should get 5
+        assertThat(contactDao.getMaxId()).isEqualTo(5L);
+    }
 }
