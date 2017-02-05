@@ -143,9 +143,20 @@ public class ContactDaoImpl implements ContactDao {
         return numberOfContactsWithThisId != 0;
     }
 
+    /**
+     * calculates number of tasks in DAO. The SQL
+     * function {@code COUNT} is used with {@literal id}
+     * column
+     * @return : {@code Long count} : number of contacts in DAO
+     */
     @Override
     public Long count() {
-        return null;
+        Session session = sessionFactory.openSession();
+        Long count = (Long) session.createQuery(
+                "SELECT COUNT(id) FROM Contact"
+        ).getSingleResult();
+        session.close();
+        return count;
     }
 
     @Override
