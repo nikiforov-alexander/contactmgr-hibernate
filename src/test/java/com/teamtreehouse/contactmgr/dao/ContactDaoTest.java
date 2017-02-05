@@ -106,4 +106,14 @@ public class ContactDaoTest {
         // Then we should not be able to find first contact
         assertThat(contactDao.findOne(1L)).isNull();
     }
+
+    @Test
+    public void existsMethodGivesTrueWhenContactExists() throws Exception {
+        // Given dao with 5 test Contacts
+        addTestContactsToDatabase(5);
+
+        // When we check whether first Contact exists
+        // Then true should be returned
+        assertThat(contactDao.exists(1L)).isTrue();
+    }
 }
