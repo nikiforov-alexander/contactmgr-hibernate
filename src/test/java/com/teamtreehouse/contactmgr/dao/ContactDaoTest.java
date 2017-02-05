@@ -116,4 +116,14 @@ public class ContactDaoTest {
         // Then true should be returned
         assertThat(contactDao.exists(1L)).isTrue();
     }
+
+    @Test
+    public void countMethodReturnsCorrectNumberOfContacts() throws Exception {
+        // Given dao with 5 test contacts
+        addTestContactsToDatabase(5);
+
+        // When we use count to calculate number of contacts
+        // Then 5 should be returned
+        assertThat(contactDao.count()).isEqualTo(5);
+    }
 }
