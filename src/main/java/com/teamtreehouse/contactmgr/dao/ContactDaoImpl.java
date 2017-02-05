@@ -100,7 +100,11 @@ public class ContactDaoImpl implements ContactDao {
 
     @Override
     public void delete(Contact contact) {
-
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(contact);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
