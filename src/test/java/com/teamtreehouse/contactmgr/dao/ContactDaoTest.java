@@ -136,4 +136,16 @@ public class ContactDaoTest {
         // Then we should get 5
         assertThat(contactDao.getMaxId()).isEqualTo(5L);
     }
+
+    @Test
+    public void findLastAdded_shouldFindLastAddedContact() throws Exception {
+        // Given dao with 5 added contacts
+        addTestContactsToDatabase(5);
+
+        // When we call findLastAdded
+        Contact lastAddedContact = contactDao.findLastAdded();
+
+        // Then we should find the fifth Contact
+        assertThat(lastAddedContact).isEqualTo(contactDao.findOne(5L));
+    }
 }
