@@ -159,9 +159,21 @@ public class ContactDaoImpl implements ContactDao {
         return count;
     }
 
+    /**
+     * Finds the latest added {@code Contact} using
+     * @see #getMaxId()
+     * @see #findOne(Long)
+     * @return latest added Contact or {@code null} if
+     * DAO is empty
+     */
     @Override
     public Contact findLastAdded() {
-        return null;
+        Long maxId = getMaxId();
+        if (exists(maxId)) {
+            return findOne(maxId);
+        } else {
+            return null;
+        }
     }
 
     /**
