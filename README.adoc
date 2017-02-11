@@ -1,0 +1,85 @@
+= Contact Manager App Enhanced
+:experimental:
+:source-highlighter: coderay
+:toc:
+:toclevels: 5
+:toc-placement: preamble
+:sectnums:
+:main_package: link:./src/main/java/com/teamtreehouse/contactmgr
+:test_package: link:./src/test/java/com/teamtreehouse/contactmgr
+:Application: {main_package}/Application.java[Application]
+:Contact: {main_package}/model/Contact.java[Contact]
+:ContactDao: {main_package}/dao/ContactDao.java[ContactDao]
+:ContactDaoImpl: {main_package}/dao/ContactDaoImpl.java[ContactDaoImpl]
+:ContactDaoTest: {test_package}/dao/ContactDaoTest.java[ContactDaoTest]
+:build_gradle: link:./build.gradle[build.gradle]
+:main_resources: link:./src/main/resources
+:hiberate_cfg_xml: {main_resources}/hibernate.cfg.xml[hibernate.cfg.xml]
+:hiberate_test_cfg_xml: {main_resources}/hibernate-test.cfg.xml[hibernate-test.cfg.xml]
+
+toc::[]
+
+== Description
+
+This application is enhancement of https://github.com/treehouse/contactmgr-hibernate[Contact Manager GitHub Repo]
+that is following https://teamtreehouse.com/library/hibernate-basics[Hibernate Basics course on Treehouse].
+
+The goal of this Fork is to provide example of how one can use DAO
+pattern to re-write this application, and encapsulate logic of 
+database interactions behind the {ContactDao} interface and {ContactDaoImpl}.
+
+This application also shows how one can use Unit Testing to test 
+DAO interactions, see {ContactDaoTest}.
+
+=== How to Run
+
+I like to run H2 Database in a Server-Mode as often as possible.
+Especially when it comes to learning purposes. This way person
+can open database GUI (for H2 database) and watch how his actual
+database is changed. It is exteremely helpful for beginners, that 
+make mistakes and want to see what is wrong.
+
+I added `h2-1.4.193` file in the root directory for convenience.
+
+Before running `main` method of {Application} class from IDE, one has
+to *start H2 server*. http://www.h2database.com/html/cheatSheet.html[This] is
+the official reference how to start. https://teamtreehouse.com/library/create-a-sessionfactory-and-datasource[This] 
+is the video where https://github.com/christherama[Chris Ramacciotti]
+does that for https://teamtreehouse.com/library/spring-with-hibernate[Spring with Hibernate course]
+
+From Intellijdea one simply presses `Alt+<F12>` to open a terminal
+and run 
+
+```text
+java -cp h2*.jar org.h2.tools.Server
+```
+
+Otherwise one can open Terminal or Command Prompt and go to project root, i.e.
+where `h2-1.4.193.jar` file lies and run the command above.
+
+Automatically program will open Browser with H2 GUI 
+
+image:./images/h2-console.png[H2 GUI Screenshot]
+
+The message in console is usually like this
+
+```text
+TCP server running at tcp://127.0.1.1:9092 (only local connections)
+PG server running at pg://127.0.1.1:5435 (only local connections)
+Web Console server running at http://127.0.1.1:8082 (only local connections)
+```
+
+Alternatively one can go directly to `http://127.0.1.1:8082` and see H2 GUI.
+
+In this window one simply picks proper `JDBC URL`, `username` and `password` 
+*according to* {hiberate_cfg_xml} given.
+
+So for our application it is these lines from {hiberate_cfg_xml}
+
+```XML
+       <property name="connection.url">jdbc:h2:tcp://localhost/./data/contactmgr</property>
+
+       <property name="connection.username">sa</property>
+
+       <property name="connection.password">sa</property>
+```
